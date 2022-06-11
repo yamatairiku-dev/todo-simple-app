@@ -54,6 +54,20 @@ app.put('/todos/:id', (req, res) => {
   todos[i].description = req.body.description
   res.redirect(`/todos/${id}`)
 })
+// 完了登録
+app.put('/todos/:id/completed', (req, res) => {
+  const id = req.params.id
+  const i = todos.findIndex(todos => todos.id === id)
+  todos[i].completed = true
+  res.redirect(`/todos/${id}`)
+})
+// 未完了登録
+app.delete('/todos/:id/completed', (req, res) => {
+  const id = req.params.id
+  const i = todos.findIndex(todos => todos.id === id)
+  todos[i].completed = false
+  res.redirect(`/todos/${id}`)
+})
 // 一覧画面
 app.get('/todos', (req, res) => {
   if (!req.query.completed) {

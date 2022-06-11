@@ -20,7 +20,7 @@
     <input type="text" id="descriptionInput" disabled value="<%= todo.description %>">
   </div>
   <div>
-    <label for="titleInput">状態: <%= todo.completed ? "完了" : "未完了" %></label>
+    <label for="titleInput">状態: <%= todo.completed ? '完了' : '未完了' %></label>
   </div>
   <div>
     <label for="titleInput">ID: <%= todo.id %></label>
@@ -28,6 +28,11 @@
   <hr>
   <button onclick="location.href='/todos/<%= todo.id %>/edit'">編集</button>
   <button onclick="location.href='/todos/<%= todo.id %>?_method=DELETE'">削除</button>
+  <% if (todo.completed) { %>
+    <button onclick="location.href='/todos/<%= todo.id %>/completed?_method=DELETE'">未完了にする</button>
+  <% } else { %>
+    <button onclick="location.href='/todos/<%= todo.id %>/completed?_method=PUT'">完了にする</button>
+  <% } %>
   <button onclick="location.href='/todos'">一覧</button>
 </body>
 </html>
