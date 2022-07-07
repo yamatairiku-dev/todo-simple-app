@@ -5,7 +5,7 @@ const methodOverride = require('method-override')
 const app = express()
 
 // サーバの待ち受けポート設定
-const port = 3000
+const port = process.env.PORT || 3000
 
 // expressの設定
 app.set("view engine", "ejs")
