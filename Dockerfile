@@ -1,10 +1,10 @@
 FROM node:lts
 WORKDIR /home/node
-COPY * WORKDIR
+COPY * .
 
 # Set the SHELL to bash with pipefail option
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN npm install
 
-ENTRYPOINT ["/home/node/node app"]
+ENTRYPOINT ["node app"]
