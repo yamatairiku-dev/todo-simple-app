@@ -7,4 +7,5 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN npm install
 
-ENTRYPOINT ["node app"]
+CMD ["export", "PORT=80"]
+ENTRYPOINT ["/home/node/node app"]
