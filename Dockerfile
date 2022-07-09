@@ -1,6 +1,6 @@
 FROM node:lts
 WORKDIR /home/node
-COPY * .
+COPY * ./
 
 # Set the SHELL to bash with pipefail option
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
