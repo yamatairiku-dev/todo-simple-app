@@ -1,10 +1,13 @@
 FROM node:lts
 WORKDIR /home/node
-COPY * ./
+COPY package*.json ./
 
 # Set the SHELL to bash with pipefail option
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN npm install
 
-CMD node app
+COPY . .
+
+EXPOSE 80
+CMD [ "node", "app.js" ]
