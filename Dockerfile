@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:lts-alpine3.15
 WORKDIR /home/node
 COPY . .
 
