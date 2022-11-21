@@ -8,8 +8,8 @@ const app = express()
 const port = process.env.PORT || 3000
 
 // expressの設定
-app.set("view engine", "ejs")
-app.use(express.urlencoded({extended: false}))
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(methodOverride('_method', {
   methods: ['POST', 'GET']
@@ -36,19 +36,19 @@ app.post('/todos/create', (req, res) => {
 })
 // 削除
 app.delete('/todos/:id', (req, res) => {
-  const i = todos.findIndex(todos => todos.id === req.params.id)
-  todos.splice(i, i + 1)
+  const i = todos.findIndex(todo => todo.id === req.params.id)
+  todos.splice(i, 1)
   res.redirect('/todos')
 })
 // 編集画面
 app.get('/todos/:id/edit', (req, res) => {
-  const data = todos.filter(todos => todos.id === req.params.id)
+  const data = todos.filter(todo => todo.id === req.params.id)
   res.render('edit', { todo: data[0] })
 })
 // 更新
 app.put('/todos/:id', (req, res) => {
   const id = req.params.id
-  const i = todos.findIndex(todos => todos.id === id)
+  const i = todos.findIndex(todo => todo.id === id)
   todos[i].title = req.body.title
   todos[i].deadline = req.body.deadline
   todos[i].description = req.body.description
@@ -57,21 +57,21 @@ app.put('/todos/:id', (req, res) => {
 // 完了登録
 app.put('/todos/:id/completed', (req, res) => {
   const id = req.params.id
-  const i = todos.findIndex(todos => todos.id === id)
+  const i = todos.findIndex(todo => todo.id === id)
   todos[i].completed = true
   res.redirect(`/todos/${id}`)
 })
 // 未完了登録
 app.delete('/todos/:id/completed', (req, res) => {
   const id = req.params.id
-  const i = todos.findIndex(todos => todos.id === id)
+  const i = todos.findIndex(todo => todo.id === id)
   todos[i].completed = false
   res.redirect(`/todos/${id}`)
 })
 // 一覧画面
 app.get('/todos', (req, res) => {
   if (!req.query.completed) {
-    return res.render('todos', { todos: todos })
+    return res.render('todos', { todos })
   }
   const completed = req.query.completed === 'true'
   const data = todos.filter(todos => todos.completed === completed)
@@ -79,11 +79,11 @@ app.get('/todos', (req, res) => {
 })
 // 詳細画面
 app.get('/todos/:id', (req, res) => {
-  const data = todos.filter(todos => todos.id === req.params.id)
-  res.render('show', { todo: data[0] })
+  const i = todos.findIndex(todo => todo.id === req.params.id)
+  res.render('show', { todo: todos[i] })
 })
 // apiデータ
-app.get('/api/todos', (req, res) => res.send(todos))
+app.get('/api/todos', (req, res) => res.json(todos))
 // メニュー画面
 app.get('/', (req, res) => res.render('menu'))
 
